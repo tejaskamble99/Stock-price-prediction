@@ -1,0 +1,10 @@
+ctr + f5 :- hard reset the page
+
+pip freeze | findstr /i django >> requirements.txt
+pip install -r requirements.txt
+
+
+
+
+user:- stock
+pass:- Kamble@99
