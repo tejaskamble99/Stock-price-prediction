@@ -20,7 +20,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-bu7uhn&$d*y58%52uz6(d9m^^*_0%2o^mvnm(@9h_4-i^!3y+h'
+import environ
+
+env = environ.Env()
+environ.Env.read_env()
+
+SECRET_KEY = env('SECRET_KEY')
+# SECRET_KEY = 'django-insecure-bu7uhn&$d*y58%52uz6(d9m^^*_0%2o^mvnm(@9h_4-i^!3y+h'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -73,6 +79,8 @@ WSGI_APPLICATION = 'stock.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '.vercel.app']
+
 
 DATABASES = {
     'default': {
@@ -116,11 +124,17 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 import os
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 
-STATICFILES_DIRS=[
-    os.path.join(BASE_DIR,'static')
+  # Set the root for static files
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static')  # Location of your static files
 ]
+
+# Whitenoise settings
+WHITENOISE_MANIFEST_STRICT = False  # Allow serving of static files even if the manifest is incomplete
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
